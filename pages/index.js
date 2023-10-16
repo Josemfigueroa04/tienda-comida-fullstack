@@ -4,7 +4,7 @@ export default function Home({ categorias}) {
   console.log(categorias);
   return (
     <>
-    <h1>Next Js</h1>
+    <h1>Ultima prueba</h1>
     
     </>
   )
