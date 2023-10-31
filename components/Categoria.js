@@ -3,26 +3,26 @@ import useQuiosco from "../hooks/useQuiosco";
 
 
 const Categoria = ({ categoria }) => {
-    const { categoriActual, handleClickCategoria  } = useQuiosco();
+    const { categoriaActual, handleClickCategoria } = useQuiosco();
 
     const { nombre, icono, id } = categoria;
 
     return (
-        <div className={`${categoriActual?.id === id ? "bg-amber-400" : ""}flex items-center gap-4 w-full border p-5 hover:bg-amber-400`}>
+        <div className={`${categoriaActual?.id === id ? "bg-amber-400" : ""} flex items-center gap-4 w-full border p-5 hover:bg-amber-400`}>
             <Image
-            width={70}
-            height={70}
-            src={`/assets/img/icono_${icono}.svg`}
-            alt="Imagen Icono"
-            className="mr-5"
+                width={70}
+                height={70}
+                src={`/assets/img/icono_${icono}.svg`}
+                alt="Imagen Icono"
+                className="mr-5"
 
-        />
-        <button className="text-2xl font-bold hover:cursor-pointer" type="button"
-        onClick={() => handleClickCategoria(id)}> 
-            {nombre}
-        </button>
+            />
+            <button className="text-2xl font-bold hover:cursor-pointer" type="button"
+                onClick={() => handleClickCategoria(id)}>
+                {nombre}
+            </button>
         </div>
-        
+
 
     )
 }

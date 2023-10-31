@@ -5,7 +5,7 @@ const QuioscoContext = createContext();
 
 const QuioscoProvider = ({children}) => {
     const [categorias, setCategorias] = useState([]);
-    const [categoriActual, setCategoriActual] = useState({});
+    const [categoriaActual, setCategoriaActual] = useState({});
 
     const obtenerCategorias = async () => {
         const {data} = await axios.get('/api/categorias');
@@ -16,9 +16,15 @@ const QuioscoProvider = ({children}) => {
         obtenerCategorias();
     }, []);
 
+    useEffect(() => {
+        setCategoriaActual(categorias[0]);
+    },[categorias]);
+
     const handleClickCategoria = (id) => {
-        console.log(id);
-        
+        const categoria = categorias.filter(cat => cat.id === id); 
+        setCategoriaActual(categoria[0]);
+        console.log(categoriaActual)
+
     }
 
 
@@ -26,7 +32,7 @@ const QuioscoProvider = ({children}) => {
         <QuioscoContext.Provider
             value={{
                 categorias, 
-                categoriActual,
+                categoriaActual,
                 handleClickCategoria
 
             }}
