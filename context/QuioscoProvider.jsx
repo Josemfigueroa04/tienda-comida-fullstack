@@ -1,5 +1,6 @@
 import {useState,useEffect,createContext} from 'react';
 import axios from 'axios';
+import {toast} from 'react-toastify';
 
 const QuioscoContext = createContext();
 
@@ -8,6 +9,7 @@ const QuioscoProvider = ({children}) => {
     const [categoriaActual, setCategoriaActual] = useState({});
     const [producto, setProducto] = useState({});
     const [modal, setModal] = useState(false);
+    const [pedido, setPedido] = useState([]);
 
     const obtenerCategorias = async () => {
         const {data} = await axios.get('/api/categorias');
@@ -37,6 +39,20 @@ const QuioscoProvider = ({children}) => {
         setModal(!modal);
     }
 
+    const handleSetPedido = ({categoriaId,imagen,...producto}) => {
+        if(pedido.some(productoState => productoState.id === producto.id)){
+            const pedidoActualizado = pedido.map(productoState => productoState.id === producto.id ? producto : productoState);
+            setPedido(pedidoActualizado);
+            toast.success('Guardado Correctamente')
+            
+        }else{
+            setPedido([...pedido, producto]);
+        }
+        setModal(false)
+        toast.success('Producto agregado al pedido');
+        
+    }
+
 
     return (
         <QuioscoContext.Provider
@@ -48,6 +64,8 @@ const QuioscoProvider = ({children}) => {
                 handleSetProductos,
                 modal,
                 handleChangeModal,
+                handleSetPedido,
+                pedido,
 
             }}
         >
